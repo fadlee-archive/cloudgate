@@ -6967,32 +6967,36 @@
         defaultQuota: 5,
         namePlaceholder: 'mis. Akun Microsoft OneDrive',
         namePlaceholderEn: 'e.g. Primary Microsoft OneDrive Account',
-        clientIdPlaceholder: 'Application (client) ID dari Microsoft Entra',
-        clientIdPlaceholderEn: 'Application (client) ID from Microsoft Entra',
+        clientIdPlaceholder: 'Application (client) ID dari Azure / Entra',
+        clientIdPlaceholderEn: 'Application (client) ID from Azure / Entra',
         clientSecretPlaceholder: 'Nilai (Value) client secret',
         clientSecretPlaceholderEn: 'Client secret Value',
         requiresCredentials: true,
         guideHtml: (redirectUri, isEn) => `
-          ${guideTitle(isEn ? 'Microsoft Entra ID app registration:' : 'Pendaftaran aplikasi Microsoft Entra ID:')}
+          ${guideTitle(isEn ? 'Microsoft Azure / Entra ID app registration:' : 'Pendaftaran aplikasi Microsoft Azure / Entra ID:')}
           ${guideList(isEn ? [
-            `Open ${guideLink('https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade', 'Microsoft Entra admin center → App registrations')} (or the Azure Portal) and click <strong>New registration</strong>.`,
+            `<strong>Personal accounts (@outlook/@live/@gmail)</strong>: sign up for a free tenant at ${guideLink('https://azure.microsoft.com/free/', 'Azure Free')} first. (Work/school accounts can skip this step).`,
+            `Open ${guideLink('https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade', 'Azure Portal → App registrations')} (or ${guideLink('https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade', 'Entra ID')} for work/school) and click <strong>New registration</strong>.`,
             `Supported account types: choose <strong>Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)</strong>.`,
             `Redirect URI: platform <strong>Web</strong> (not SPA) with this exact URL:`
           ] : [
-            `Buka ${guideLink('https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade', 'Microsoft Entra admin center → App registrations')} (atau Azure Portal) lalu klik <strong>New registration</strong>.`,
+            `<strong>Akun personal (@outlook/@live/@gmail)</strong>: daftar tenant gratis via ${guideLink('https://azure.microsoft.com/free/', 'Azure Free')} terlebih dahulu. (Akun kerja/sekolah bisa lewati langkah ini).`,
+            `Buka ${guideLink('https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade', 'Azure Portal → App registrations')} (atau ${guideLink('https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade', 'Entra ID')} untuk akun kerja/sekolah) lalu klik <strong>New registration</strong>.`,
             `Supported account types: pilih <strong>Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)</strong>.`,
             `Redirect URI: platform <strong>Web</strong> (bukan SPA) dengan URL persis ini:`
           ])}
           ${guideRedirect(redirectUri, isEn)}
           <div style="font-size:0.75rem;line-height:1.45;">${isEn
-            ? '4. Copy the <strong>Application (client) ID</strong>.<br>5. <strong>Certificates &amp; secrets → New client secret</strong>: copy the secret <strong>Value</strong> (not the Secret ID). Secrets expire (max. 24 months): create a new one and reconnect before that.<br>6. <strong>API permissions → Microsoft Graph → Delegated</strong>: <code>Files.ReadWrite</code>, <code>offline_access</code>, <code>User.Read</code>.'
-            : '4. Salin <strong>Application (client) ID</strong>.<br>5. <strong>Certificates &amp; secrets → New client secret</strong>: salin <strong>Value</strong> secret (bukan Secret ID). Secret memiliki masa berlaku (maks. 24 bulan): buat baru dan hubungkan ulang sebelum kedaluwarsa.<br>6. <strong>API permissions → Microsoft Graph → Delegated</strong>: <code>Files.ReadWrite</code>, <code>offline_access</code>, <code>User.Read</code>.'}</div>
+            ? '5. Copy the <strong>Application (client) ID</strong>.<br>6. <strong>Certificates &amp; secrets → New client secret</strong>: copy the secret <strong>Value</strong> (not the Secret ID). Secrets expire (max. 24 months): create a new one and reconnect before that.<br>7. <strong>API permissions → Microsoft Graph → Delegated</strong>: <code>Files.ReadWrite</code>, <code>offline_access</code>, <code>User.Read</code>.'
+            : '5. Salin <strong>Application (client) ID</strong>.<br>6. <strong>Certificates &amp; secrets → New client secret</strong>: salin <strong>Value</strong> secret (bukan Secret ID). Secret memiliki masa berlaku (maks. 24 bulan): buat baru dan hubungkan ulang sebelum kedaluwarsa.<br>7. <strong>API permissions → Microsoft Graph → Delegated</strong>: <code>Files.ReadWrite</code>, <code>offline_access</code>, <code>User.Read</code>.'}</div>
           ${httpsNote(isEn)}
           ${guideTrouble(isEn, [
             `<strong>AADSTS700016</strong>: ${isEn ? 'wrong Client ID.' : 'Client ID salah.'}`,
             `<strong>AADSTS50011</strong>: ${isEn ? 'redirect URI not registered as platform Web or not identical.' : 'redirect URI tidak terdaftar sebagai platform Web atau tidak identik.'}`,
             `<strong>AADSTS7000215 / invalid_client</strong>: ${isEn ? 'you copied the Secret ID instead of its Value, or the secret expired.' : 'Anda menyalin Secret ID alih-alih Value, atau secret sudah kedaluwarsa.'}`,
-            `<strong>AADSTS50194 / unauthorized_client</strong>: ${isEn ? 'the app is single-tenant; register it for multitenant + personal accounts.' : 'aplikasi single-tenant; daftarkan untuk multitenant + akun personal.'}`
+            `<strong>AADSTS50194 / unauthorized_client</strong>: ${isEn ? 'the app is single-tenant; register it for multitenant + personal accounts.' : 'aplikasi single-tenant; daftarkan untuk multitenant + akun personal.'}`,
+            `<strong>"Not contained within any directory"</strong>: ${isEn ? 'personal accounts require an active directory to register apps; sign up for a free Azure tenant at <a href="https://azure.microsoft.com/free/" target="_blank" rel="noopener">azure.microsoft.com/free</a> first.' : 'akun personal membutuhkan direktori aktif; daftar tenant gratis di <a href="https://azure.microsoft.com/free/" target="_blank" rel="noopener">azure.microsoft.com/free</a> terlebih dahulu.'}`,
+            `<strong>"Selected user account does not exist in tenant 'Microsoft Services'"</strong>: ${isEn ? 'entra.microsoft.com rejects personal accounts; use Azure Portal (portal.azure.com) in InPrivate/Incognito mode.' : 'entra.microsoft.com menolak akun personal; buka Azure Portal (portal.azure.com) dalam mode InPrivate/Incognito.'}`
           ])}
         `
       },
