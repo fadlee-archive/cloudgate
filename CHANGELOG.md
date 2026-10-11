@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **OneDrive Onboarding Guide**: Updated in-app registration guide to direct users to Azure Portal instead of Entra ID, added instructions for personal accounts needing a free Azure tenant (`azure.microsoft.com/free`), and added troubleshooting guidance for tenant errors ("Not contained within any directory" and "Selected user account does not exist in tenant 'Microsoft Services'").
+
 ## [0.4.2] - 2026-10-06
 
 ### Added
